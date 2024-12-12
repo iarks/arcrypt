@@ -78,7 +78,11 @@
         var ciphertextBytes = await _cryptoService.Encrypt(_encryptForm.Plaintext, _encryptForm.Password, null);
         var cipherText = Convert.ToBase64String(ciphertextBytes);
         _encryptForm.Ciphertext = cipherText;
-        await Modal.Open(new ModalContent("Ciphertext", _encryptForm.Ciphertext, "Make sure to copy this ciphertext. Once closed, this ciphertext cannot be retrieved again"){ Icon = "lock-dark" });
+        await Modal.Open(new ModalContent("Ciphertext", _encryptForm.Ciphertext, "Make sure to copy this ciphertext. Once closed, this ciphertext cannot be retrieved again")
+        { 
+            Icon = "lock-dark", 
+            InfotextStyle = InfotextType.WARN 
+        });
         isLoading = false;
     }
 
