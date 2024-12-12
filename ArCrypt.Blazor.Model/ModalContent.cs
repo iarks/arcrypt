@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ArCrypt.Blazor.Model;
+﻿namespace ArCrypt.Blazor.Model;
 
 public class ModalContent
 {
@@ -12,7 +6,9 @@ public class ModalContent
 
     public string Content { get; }
 
-    public string? Warning { get; }
+    public string? Infotext { get; }
+
+    public InfotextType InfotextStyle { get; init; }
 
     public string? Icon { get; init; }
 
@@ -20,7 +16,8 @@ public class ModalContent
     {
         Title = title;
         Content = content;
-        Warning = warning;
+        Infotext = warning;
+        InfotextStyle = InfotextType.INFO;
     }
 }
 
