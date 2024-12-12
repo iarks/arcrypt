@@ -6,6 +6,7 @@
 @using ArCrypt.Blazor.Model
 
 <h4>Decrypt</h4>
+<ArModal @ref="Modal" />
 
 <EditForm Model="@_encryptForm" OnValidSubmit="HandleSubmit">
     <DataAnnotationsValidator />
@@ -36,14 +37,10 @@
         <button type="reset" class="btn btn-danger w-100 mt-2" @onclick="ResetForm">Reset</button>
     </div>
 
-    <div class="mb-3" style="width:100%">
-        <ArInput @bind-Value="@_encryptForm.Plaintext" Icon="unlock-dark" readonly DisableClear="@true" Label="Plaintext" Placeholder="Plaintext"></ArInput>
-    </div>
-
 </EditForm>
 
 @code {
-
+    private ArModal Modal = null!;
     private bool isLoading = false;
     private EncryptionForm _encryptForm = new();
     private ValidationContext _validationContext = null!;
@@ -76,6 +73,7 @@
             var plaintextBytes = await _cryptoService.Decrypt(ciphertextBytes, _encryptForm.Password, null);
             var plainText = Encoding.UTF8.GetString(plaintextBytes);
             _encryptForm.Plaintext = plainText;
+            await Modal.Open(new ModalContent("Plaintext", _encryptForm.Plaintext, null) { Icon = "unlock" });
         }
         catch(Exception ex)
         {
